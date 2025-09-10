@@ -110,4 +110,9 @@ class MedicoResource extends Resource
             'edit' => Pages\EditMedico::route('/{record}/edit'),
         ];
     }
+    public static function shouldRegisterNavigation(): bool
+{
+    // Só admins podem ver médicos e procedimentos
+    return auth()->user()->isAdmin();
+}
 }

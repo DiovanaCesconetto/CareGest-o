@@ -12,9 +12,10 @@ class Consulta extends Model
         'paciente',
         'data',
         'valor',
+        
     ];
 
-    // Relacionamento com Medico
+    // Relacionamento com Meadico
     public function medico()
     {
         return $this->belongsTo(Medico::class);
