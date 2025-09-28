@@ -66,13 +66,29 @@ class ConsultaResource extends Resource
             TextColumn::make('paciente')->label('Paciente'),
             TextColumn::make('data')->date()->label('Data'),
             TextColumn::make('valor')->money('BRL', true)->label('Valor'),
+            TextColumn::make('status')->label('Status')->badge()->colors([
+            'success' => 'ativa',     // verde
+            'danger'  => 'cancelada', // vermelho
+             ])->icons([
+                'heroicon-o-check-circle' => 'ativa',
+                'heroicon-o-x-circle'     => 'cancelada',
+             ]),
         ])
         ->filters([
             //
         ])
         ->actions([
             Tables\Actions\EditAction::make(),
-            Tables\Actions\DeleteAction::make(),
+           // Tables\Actions\DeleteAction::make(),
+           
+            Tables\Actions\Action::make('cancelar')
+                ->label('Cancelar')
+                ->color('danger')
+                ->requiresConfirmation()
+                ->visible(fn($record) => $record->status !== 'cancelada')
+                ->action(function ($record) {
+                $record->update(['status' => 'cancelada']);
+            }),
         ])
         ->bulkActions([
             Tables\Actions\DeleteBulkAction::make(),

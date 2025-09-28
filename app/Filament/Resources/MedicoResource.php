@@ -20,6 +20,7 @@ use Filament\Forms\Components\FileUpload;
 
 
 
+
 class MedicoResource extends Resource
 {
     protected static ?string $model = Medico::class;
@@ -54,10 +55,16 @@ class MedicoResource extends Resource
                     ->required()
                     ->mask('(99) 99999-9999') // máscara
                     ->placeholder('(69) 99999-9999'),
-                FileUpload::make('foto')
+              FileUpload::make('foto')
                     ->image()
+                    ->disk('public')
                     ->directory('fotos-medicos')
-                    ->required()
+                    ->required(fn ($record) => !$record)
+                    ->maxSize(50 * 1024)
+                    ->imagePreviewHeight('100'),
+
+                   // ->imagePreviewHeight('100'),
+
                 // Select::make('especialidade_id')
                 //     ->relationship('especialidade', 'nome')
                 //     ->multiple()

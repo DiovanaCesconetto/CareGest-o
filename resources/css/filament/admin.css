@@ -1,0 +1,7 @@
+/* Oculta avatar, menu de usuário, links GitHub e Documentation */
+.fi-user-menu,
+.fi-version,
+.fi-documentation-link,
+.fi-github-link {
+    display: none !important;
+}
