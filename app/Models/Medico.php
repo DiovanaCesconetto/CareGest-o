@@ -13,6 +13,10 @@ class Medico extends Model
     protected $table = 'medicos';
 
     // Campos que podem ser preenchidos em massa (mass assignment)
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
     protected $fillable = [
         'nome',
         'especialidade',
@@ -21,5 +25,7 @@ class Medico extends Model
         'endereco',
         'crm',
         'foto', // se for armazenar imagem do médico
+        'user_id', 
+
     ];
 }

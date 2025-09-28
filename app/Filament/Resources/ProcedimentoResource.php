@@ -71,4 +71,9 @@ class ProcedimentoResource extends Resource
             'edit' => Pages\EditProcedimento::route('/{record}/edit'),
         ];
     }
+    public static function shouldRegisterNavigation(): bool
+{
+    // Só admins podem ver médicos e procedimentos
+    return auth()->user()->isAdmin();
+}
 }

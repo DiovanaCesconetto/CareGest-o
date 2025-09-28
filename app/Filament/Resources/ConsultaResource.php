@@ -30,9 +30,9 @@ class ConsultaResource extends Resource
     {
         return $form->schema([
         
-        Select::make('medico_id')
-        ->default(fn () => auth()->user()->medico->id) // pega o médico do login
-        ->hidden() // esconde do formulário
+      Select::make('medico_id')
+        ->default(fn () => auth()->user()?->medico?->id) // operador null safe
+        ->hidden()
         ->required(),
 
         Select::make('procedimento_id')
@@ -94,4 +94,15 @@ class ConsultaResource extends Resource
             'edit' => Pages\EditConsulta::route('/{record}/edit'),
         ];
     }
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if (auth()->user()?->isMedico()) {
+            $query->where('medico_id', auth()->user()->medico->id);
+        }
+
+        return $query;
+    }
+    
 }
