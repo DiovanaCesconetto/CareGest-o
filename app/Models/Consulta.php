@@ -12,6 +12,7 @@ class Consulta extends Model
         'paciente',
         'data',
         'valor',
+        'status',
         
     ];
 

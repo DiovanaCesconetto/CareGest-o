@@ -19,6 +19,8 @@ public function up(): void
         $table->date('data');
         $table->decimal('valor', 10, 2)->default(0);
         $table->timestamps();
+        $table->string('status')->default('ativa'); 
+
     });
 }
 
